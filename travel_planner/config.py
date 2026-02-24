@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Gemini model - stable only (no -exp)
+# Gemini model - stable only (no -exp). Use 1.5-flash or 1.5-pro.
 GEMINI_MODEL = "gemini-2.5-flash"
 
 # API key loaded from .env; never hardcode

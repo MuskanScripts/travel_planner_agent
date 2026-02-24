@@ -4,7 +4,7 @@ A production-ready multi-agent travel planning system built with **Google ADK (P
 
 ## Architecture (short)
 
-The system uses one **root orchestrator** implemented as a **SequentialAgent** that runs four **sub-agents** in order: **AttractionAgent** (uses Google Search), **AccommodationAgent** (hotel cost estimator), **TransportAgent** (transport cost estimator), and **ItineraryAgent** (budget allocator + itinerary generator). Each sub-agent writes its result to shared state; the next agent reads it and calls its tools. The final agent produces the formatted plan with estimated costs, attractions, budget allocation, and day-by-day itinerary. All agents use the stable **gemini-2.5-flash** model and custom tools plus the built-in **google_search** tool in the AttractionAgent.
+The **root agent** is an **LlmAgent** that first runs **rule-based intent detection** (greeting vs incomplete vs complete). For **greetings** (e.g. "Hi", "Hello", "Good evening") it replies with a short welcome and asks for travel details without running sub-agents. For **incomplete requests** (e.g. "Plan a trip", "Goa trip") it asks clarifying questions for missing destination, days/dates, or budget. Only when **destination, days/dates, and budget** are present does it call the **TravelPlannerPipeline** (a SequentialAgent) that runs four sub-agents in order: **AttractionAgent** (Google Search), **AccommodationAgent**, **TransportAgent**, and **ItineraryAgent**, producing the full plan. All agents use **gemini-2.5-flash** and the built-in **google_search** in AttractionAgent.
 
 ## Project structure
 
@@ -12,7 +12,7 @@ The system uses one **root orchestrator** implemented as a **SequentialAgent** t
 travel_planner_agent/
 ├── travel_planner/
 │   ├── __init__.py
-│   ├── agent.py              # Root Agent (SequentialAgent orchestrator)
+│   ├── agent.py              # Root Agent (intent + pipeline orchestration)
 │   ├── config.py             # Model and env (GOOGLE_API_KEY from .env)
 │   ├── sub_agents/
 │   │   ├── __init__.py
@@ -25,7 +25,8 @@ travel_planner_agent/
 │       ├── hotel_cost_estimator.py
 │       ├── transport_cost_estimator.py
 │       ├── budget_allocator.py
-│       └── itinerary_generator.py
+│       ├── itinerary_generator.py
+│       └── travel_intent.py   # Rule-based greeting/incomplete/complete detection
 ├── problem_statement.md
 ├── README.md
 ├── requirements.txt
