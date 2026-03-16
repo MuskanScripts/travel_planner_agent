@@ -1,0 +1,97 @@
+TC01
+Input: "Hi"
+Expected Intent: greeting
+Pipeline Called: No
+Expected Response: greeting_response
+
+TC02
+Input: "Hello"
+Expected Intent: greeting
+Pipeline Called: No
+Expected Response: greeting_response
+
+TC03
+Input: "Good evening"
+Expected Intent: greeting
+Pipeline Called: No
+Expected Response: greeting_response
+
+TC04
+Input: "Hey travel planner"
+Expected Intent: greeting
+Pipeline Called: No
+Expected Response: greeting_response
+
+
+TC05
+Input: "Plan a trip"
+Expected Intent: incomplete
+Missing Fields: destination, days/dates, budget
+Pipeline Called: No
+Expected Response: Ask user for missing details
+
+TC06
+Input: "Goa trip"
+Expected Intent: incomplete
+Missing Fields: days/dates, budget
+Pipeline Called: No
+Expected Response: Ask for days and budget
+
+TC07
+Input: "3 day trip"
+Expected Intent: incomplete
+Missing Fields: destination, budget
+Pipeline Called: No
+Expected Response: Ask for destination and budget
+
+TC08
+Input: "Trip to Paris"
+Expected Intent: incomplete
+Missing Fields: days/dates, budget
+Pipeline Called: No
+Expected Response: Ask for days and budget
+
+TC09
+Input: "3 day trip to Goa"
+Expected Intent: incomplete
+Missing Fields: budget
+Pipeline Called: No
+Expected Response: Ask for budget
+
+TC10
+Input: "Trip to Japan with budget 2000"
+Expected Intent: incomplete
+Missing Fields: days/dates
+Pipeline Called: No
+Expected Response: Ask for travel duration
+
+
+TC11
+Input: "Plan a 3 day trip to Goa with budget 20000"
+Expected Intent: complete
+Pipeline Called: Yes
+Expected Action: Run TravelPlannerPipeline
+
+TC12
+Input: "5 day trip to Paris with budget 1500"
+Expected Intent: complete
+Pipeline Called: Yes
+Expected Action: Run TravelPlannerPipeline
+
+TC13
+Input: "7 day trip to Japan with budget 3000"
+Expected Intent: complete
+Pipeline Called: Yes
+Expected Action: Run TravelPlannerPipeline
+
+TC14
+Input: "Plan a 4 day Delhi trip with budget 10000"
+Expected Intent: complete
+Pipeline Called: Yes
+Expected Action: Run TravelPlannerPipeline
+
+TC15
+Input: "3 day vacation in Bali with budget 2500"
+Expected Intent: complete
+Pipeline Called: Yes
+Expected Action: Run TravelPlannerPipeline
